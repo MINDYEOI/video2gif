@@ -24,5 +24,5 @@ GUI 추가 예정...(내가 편하게 쓰려고....)
 ### mp4 -> gif
 ```
 python mp42gif.py --input [input source route] 
-# Ex) python mp42gif
+# Ex) python mp42gif --input '/Users/mindyeoi/Desktop/myVideo.mp4'
 ```
