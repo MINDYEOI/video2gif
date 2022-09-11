@@ -1,0 +1,34 @@
+name: toGIF
+channels:
+  - defaults
+dependencies:
+  - ca-certificates=2022.07.19=hecd8cb5_0
+  - certifi=2022.6.15=py38hecd8cb5_0
+  - libcxx=14.0.6=h9765a3e_0
+  - libffi=3.3=hb1e8313_2
+  - ncurses=6.3=hca72f7f_3
+  - openssl=1.1.1q=hca72f7f_0
+  - pip=22.1.2=py38hecd8cb5_0
+  - python=3.8.13=hdfd78df_0
+  - readline=8.1.2=hca72f7f_1
+  - setuptools=63.4.1=py38hecd8cb5_0
+  - sqlite=3.39.2=h707629a_0
+  - tk=8.6.12=h5d9f67b_0
+  - wheel=0.37.1=pyhd3eb1b0_0
+  - xz=5.2.5=hca72f7f_1
+  - zlib=1.2.12=h4dc903c_3
+  - pip:
+    - argparse==1.4.0
+    - charset-normalizer==2.1.1
+    - decorator==4.4.2
+    - idna==3.3
+    - imageio==2.21.2
+    - imageio-ffmpeg==0.4.7
+    - moviepy==1.0.3
+    - numpy==1.23.3
+    - pillow==9.2.0
+    - proglog==0.1.10
+    - requests==2.28.1
+    - tqdm==4.64.1
+    - urllib3==1.26.12
+prefix: /Users/mindyeoi/opt/anaconda3/envs/toGIF
