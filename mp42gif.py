@@ -1,13 +1,14 @@
 from moviepy.editor import VideoFileClip
 import argparse
 import sys
+from .UI import Application
 
 
 def parse_args(argv):
     parser = argparse.ArgumentParser(description="Let's make GIF!")
 
     parser.add_argument(
-        "--input",
+        "--input", "-i",
         help="Enter the input video source's route.",
         required=True)
 
