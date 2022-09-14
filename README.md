@@ -36,7 +36,8 @@ GIF 변환 사이트 가기 귀찮아서 만들었는데 필요하신 분 쓰세
 1. Click 'Open File'.
 2. Choose the video to convert
 3. The converted gif file is located in the same directory.
-![Sep-13-2022 01-19-01](https://user-images.githubusercontent.com/71140885/189705507-86ecb7ca-942a-4168-8820-d3175e18b1e5.gif)
+![Sep-14-2022 20-51-44](https://user-images.githubusercontent.com/71140885/190146562-b72e6e35-7eca-4e16-b5d1-1360daac810b.gif)
+
 
 ### Command
 ```
