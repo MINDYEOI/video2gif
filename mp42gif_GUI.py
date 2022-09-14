@@ -1,5 +1,6 @@
 # https://wikidocs.net/21928
 
+from cProfile import label
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QIcon
@@ -42,21 +43,26 @@ class MyApp(QWidget):
 
         if self.fileName[0]:
             self.label.setText("Converting...")
-
+            # self.label.repaint()
+            QApplication.processEvents()
             inputName = self.fileName[0]
+            QApplication.processEvents()
             outputName = inputName[:-4] + '.gif'
-            print(inputName)
-            print(outputName)
+            QApplication.processEvents()
+            # print(inputName)
+            # print(outputName)
             videoClip = VideoFileClip(inputName)
+            QApplication.processEvents()
             videoClip.write_gif(outputName)
+            QApplication.processEvents()
             # self.label.setText(" ")
             self.label.setText("Converted!")
 
         else:
             self.label.setText("No file selected")
 
-    # def convert(self):
-    #     inputName = self.fileName[0]
+    # def convert(self, inputName):
+    #     #inputName = self.fileName[0]
     #     outputName = inputName[:-4] + '.gif'
     #     print(inputName)
     #     print(outputName)
