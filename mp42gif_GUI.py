@@ -3,12 +3,13 @@
 from cProfile import label
 import sys
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 from moviepy.editor import *
 import argparse
 
 
-class MyApp(QWidget):
+class MyApp(QMainWindow):
 
     def __init__(self):
         super().__init__()
@@ -18,23 +19,34 @@ class MyApp(QWidget):
 
         # Geometry
         self.setWindowTitle('Video2GIF')
-        # self.setWindowIcon(QIcon('./assets/logo.png'))
-        self.setGeometry(300, 300, 300, 200)
+        self.resize(400, 200)
+        self.center()
 
         # self.bFileName = False
 
         # Load data button
-        # ref) https://newbie-developer.tistory.com/122, https://dotsnlines.tistory.com/501
-        self.pushButton = QPushButton('Open File')
+        self.pushButton = QPushButton('Open File', self)
+        self.pushButton.move(290, 35)
         self.pushButton.clicked.connect(self.pushButtonClicked)
 
-        self.label = QLabel()
+        # statusbar (status bar)
+        self.statusbar = QStatusBar(self)          # QStatusBar 객체 생성
+        self.setStatusBar(self.statusbar)          # 위젯 배치
+        self.statusbar.showMessage("READY")
 
-        layout = QVBoxLayout()
-        layout.addWidget(self.pushButton)
-        layout.addWidget(self.label)
+        # Label
+        self.label = QLabel(
+            " "*75, self)
+        self.label.setStyleSheet(
+            "border: 1px;" "border-color: #727272;" "border-style: solid;"  "background-color: white;")
+        self.label.adjustSize()
+        self.label.move(10, 40)
 
-        self.setLayout(layout)
+    def center(self):
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
 
     def pushButtonClicked(self):
 
@@ -42,34 +54,32 @@ class MyApp(QWidget):
             self, "open file", "./", "mp4 file(*.mp4) ;; avi file(*.avi)")
 
         if self.fileName[0]:
-            self.label.setText("Converting...")
-            # self.label.repaint()
+
+            self.label.setText(
+                self.fileName[0])
+            self.statusbar.showMessage("Converting...")
             QApplication.processEvents()
+
             inputName = self.fileName[0]
             QApplication.processEvents()
+
             outputName = inputName[:-4] + '.gif'
             QApplication.processEvents()
-            # print(inputName)
-            # print(outputName)
+
             videoClip = VideoFileClip(inputName)
+            # Want to know video's number of frame
+            frames = int(videoClip.fps * videoClip.duration)
+            print(frames)
             QApplication.processEvents()
+
             videoClip.write_gif(outputName)
             QApplication.processEvents()
-            # self.label.setText(" ")
-            self.label.setText("Converted!")
+
+            self.statusbar.setStyleSheet("color: red;")
+            self.statusbar.showMessage("Converted!")
 
         else:
-            self.label.setText("No file selected")
-
-    # def convert(self, inputName):
-    #     #inputName = self.fileName[0]
-    #     outputName = inputName[:-4] + '.gif'
-    #     print(inputName)
-    #     print(outputName)
-    #     videoClip = VideoFileClip(inputName)
-    #     videoClip.write_gif(outputName)
-    #     self.label.setText(" ")
-    #     self.convertedLabel.setText("Converted!")
+            self.statusbar.showMessage("No file selected")
 
 
 if __name__ == '__main__':
