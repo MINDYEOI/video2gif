@@ -52,7 +52,7 @@ class MyApp(QMainWindow):
 
         self.fileName = QFileDialog.getOpenFileName(
             self, "open file", "./",
-            "mp4 file(*.mp4, *.m4v) ;; avi file(*.avi) ;; wmv file (*.wmv, *.mwa, *.asf) ;; mpeg-ps file (*.mpg, *.mpeg) ;; mkv file (*.mkv)")
+            "mp4 file(*.mp4) ;; avi file(*.avi) ;; wmv file (*.wmv) ;; mpeg-ps file (*.mpeg) ;; mkv file (*.mkv)")
 
         if self.fileName[0]:
 
@@ -84,6 +84,9 @@ class MyApp(QMainWindow):
             self.statusbar.showMessage("Converted!")
 
         else:
+            self.label.setText("")
+
+            self.statusbar.setStyleSheet("color: blue;")
             self.statusbar.showMessage("No file selected")
 
 
