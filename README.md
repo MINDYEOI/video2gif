@@ -29,8 +29,6 @@ GIF 변환 사이트 가기 귀찮아서 만들었는데 필요하신 분 쓰세
 
 
 ## Usage
-> ⚠️ You can use only **mp4 & avi to gif converter** now. <br>
-> ⚠️ It may not work when the input source route has special character such as ♥, ♫, ★ and so on.
 
 ### GUI Software
 1. Click 'Open File'.
