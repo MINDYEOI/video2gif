@@ -42,3 +42,7 @@ GIF 변환 사이트 가기 귀찮아서 만들었는데 필요하신 분 쓰세
 python mp42gif.py --input [input source route] 
 # Ex) python mp42gif --input '/Users/mindyeoi/Desktop/myVideo.mp4'
 ```
+
+> ## To be continued...
+> 1. GIF 용량 줄이기 - 체크박스로
+> 2. 여러개 파일 선택
