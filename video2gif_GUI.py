@@ -42,23 +42,42 @@ class MyApp(QMainWindow):
         self.label.adjustSize()
         self.label.move(10, 40)
 
+        # Label (Loading icon)
+        #self.loadingLabel = QLabel("For Loading")
+        # adding label to status bar
+        # self.statusBar().addPermanentWidget(self.loadingLabel)
+
     def center(self):
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
 
+    def startAnimation(self):
+        self.movie.start()
+
+    def stopAnimation(self):
+        self.movie.stop()
+
     def pushButtonClicked(self):
 
         self.fileName = QFileDialog.getOpenFileName(
             self, "open file", "./",
-            "mp4 file(*.mp4) ;; avi file(*.avi) ;; wmv file (*.wmv) ;; mpeg-ps file (*.mpeg) ;; mkv file (*.mkv)")
+            "mp4 file(*.mp4) ;; avi file(*.avi) ;; mov file(*.mov) ;; wmv file (*.wmv) ;; mpeg-ps file (*.mpeg) ;; mkv file (*.mkv)")
 
         if self.fileName[0]:
 
             self.label.setText(
-                self.fileName[0])
-            self.statusbar.showMessage("Converting...")
+                self.fileName[0])  # Show file location
+
+            self.statusbar.showMessage("Converting...")  # Show status label
+
+            QApplication.processEvents()
+
+            # To show the loading icon
+            #self.movie = QMovie("./assets/loader.gif")
+            # self.loadingLabel.setMovie(self.movie)
+            # self.startAnimation()
             QApplication.processEvents()
 
             fileExtension = self.fileName[1][self.fileName[1].find('.'):-1]
