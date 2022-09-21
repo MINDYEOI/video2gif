@@ -2,6 +2,7 @@
 
 from cProfile import label
 import sys
+import numpy as np
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
@@ -86,17 +87,20 @@ class MyApp(QMainWindow):
             QApplication.processEvents()
 
             outputName = inputName.replace(fileExtension, '')
-            outputName = outputName + '.gif'
+            outputName = outputName + '_ffmpeg.gif'
             print(outputName)
             QApplication.processEvents()
 
-            videoClip = VideoFileClip(inputName)
-            # Want to know video's number of frame
-            frames = int(videoClip.fps * videoClip.duration)
+            clip = VideoFileClip(inputName)
+            # # Want to know video's number of frame
+            # frames = int(clip.fps * clip.duration)
             # print(frames)
             QApplication.processEvents()
 
-            videoClip.write_gif(outputName)
+            resized_clip = clip.resize(0.8)
+
+            resized_clip.write_gif(outputName, program='ffmpeg', fps=15)
+
             QApplication.processEvents()
 
             self.statusbar.setStyleSheet("color: red;")
