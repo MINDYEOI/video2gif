@@ -42,6 +42,7 @@ class MyApp(QMainWindow):
             "border: 1px;" "border-color: #727272;" "border-style: solid;"  "background-color: white;")
         self.label.adjustSize()
         self.label.move(10, 40)
+        self.labels = []
 
         # Label (Loading icon)
         #self.loadingLabel = QLabel("For Loading")
@@ -62,14 +63,25 @@ class MyApp(QMainWindow):
 
     def pushButtonClicked(self):
 
-        self.fileName = QFileDialog.getOpenFileName(
+        self.fileNames = QFileDialog.getOpenFileNames(
             self, "open file", "./",
             "mp4 file(*.mp4) ;; avi file(*.avi) ;; mov file(*.mov) ;; wmv file (*.wmv) ;; mpeg-ps file (*.mpeg) ;; mkv file (*.mkv)")
 
-        if self.fileName[0]:
-
-            self.label.setText(
-                self.fileName[0])  # Show file location
+        if self.fileNames[0]:
+            
+            files = self.fileNames[0]
+            
+            for i in range(len(files)):
+                label = QLabel(
+                    " "*75, self)
+                label.setStyleSheet(
+                    "border: 1px;" "border-color: #727272;" "border-style: solid;"  "background-color: white;")
+                label.adjustSize()
+                label.move(10, 40 * i)
+                self.labels.append(label)
+                
+                self.labels[i].setText(
+                    self.fileNames[0][i])  # Show file location
 
             self.statusbar.showMessage("Converting...")  # Show status label
 
@@ -81,30 +93,31 @@ class MyApp(QMainWindow):
             # self.startAnimation()
             QApplication.processEvents()
 
-            fileExtension = self.fileName[1][self.fileName[1].find('.'):-1]
+            fileExtension = self.fileNames[1][self.fileNames[1].find('.'):-1]
             print(fileExtension)
-            inputName = self.fileName[0]
-            QApplication.processEvents()
+            
+            for file in files:
+                inputName = file
+                QApplication.processEvents()
 
-            outputName = inputName.replace(fileExtension, '')
-            outputName = outputName + '_ffmpeg.gif'
-            print(outputName)
-            QApplication.processEvents()
+                outputName = inputName.replace(fileExtension, '')
+                outputName = outputName + '.gif'
+                print(outputName)
+                QApplication.processEvents()
 
-            clip = VideoFileClip(inputName)
+                clip = VideoFileClip(inputName)
             # # Want to know video's number of frame
             # frames = int(clip.fps * clip.duration)
             # print(frames)
-            QApplication.processEvents()
+                QApplication.processEvents()
 
-            resized_clip = clip.resize(0.8)
+                resized_clip = clip.resize(0.8)
 
-            resized_clip.write_gif(outputName, program='ffmpeg', fps=15)
+                resized_clip.write_gif(outputName, fps=20, fuzz=1, opt='nq', program='ffmpeg')
+                QApplication.processEvents()
 
-            QApplication.processEvents()
-
-            self.statusbar.setStyleSheet("color: red;")
-            self.statusbar.showMessage("Converted!")
+                self.statusbar.setStyleSheet("color: red;")
+                self.statusbar.showMessage("Converted!")
 
         else:
             self.label.setText("")
