@@ -81,7 +81,7 @@ class MyApp(QMainWindow):
                 self.labels.append(label)
                 
                 self.labels[i].setText(
-                    self.fileNames[0][i])  # Show file location
+                    files[i])  # Show file location
 
             self.statusbar.showMessage("Converting...")  # Show status label
 
@@ -96,16 +96,15 @@ class MyApp(QMainWindow):
             fileExtension = self.fileNames[1][self.fileNames[1].find('.'):-1]
             print(fileExtension)
             
-            for file in files:
-                inputName = file
-                QApplication.processEvents()
+            for i, file in enumerate(files):
+                
 
-                outputName = inputName.replace(fileExtension, '')
+                outputName = file.replace(file[file.find('.'):], '')
                 outputName = outputName + '.gif'
                 print(outputName)
                 QApplication.processEvents()
 
-                clip = VideoFileClip(inputName)
+                clip = VideoFileClip(file)
             # # Want to know video's number of frame
             # frames = int(clip.fps * clip.duration)
             # print(frames)
@@ -113,11 +112,22 @@ class MyApp(QMainWindow):
 
                 resized_clip = clip.resize(0.8)
 
+                if i+1 == len(files):
+                    self.statusbar.setStyleSheet("color: red;")
+                    self.statusbar.showMessage("Done!")
+                    QApplication.processEvents()
+
+                
+                else:
+                    self.statusbar.setStyleSheet("color: red;")
+                    self.statusbar.showMessage("%d/%d Converted!" %(i+1, len(files)))
+                    QApplication.processEvents()
+
+                    
                 resized_clip.write_gif(outputName, fps=20, fuzz=1, opt='nq', program='ffmpeg')
                 QApplication.processEvents()
 
-                self.statusbar.setStyleSheet("color: red;")
-                self.statusbar.showMessage("Converted!")
+
 
         else:
             self.label.setText("")
