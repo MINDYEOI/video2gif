@@ -1,3 +1,6 @@
+""" To make the exe file, Enter the command:
+    `pyinstaller -w -F video2gif_GUI.py`
+"""
 # https://wikidocs.net/21928
 
 from cProfile import label
@@ -93,15 +96,11 @@ class MyApp(QMainWindow):
             # self.startAnimation()
             QApplication.processEvents()
 
-            fileExtension = self.fileNames[1][self.fileNames[1].find('.'):-1]
-            print(fileExtension)
-            
             for i, file in enumerate(files):
                 
 
                 outputName = file.replace(file[file.find('.'):], '')
                 outputName = outputName + '.gif'
-                print(outputName)
                 QApplication.processEvents()
 
                 clip = VideoFileClip(file)
