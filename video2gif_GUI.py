@@ -11,6 +11,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from moviepy.editor import *
 import argparse
+import subprocess
 
 
 class MyApp(QMainWindow):
@@ -98,7 +99,6 @@ class MyApp(QMainWindow):
 
             for i, file in enumerate(files):
                 
-
                 outputName = file.replace(file[file.find('.'):], '')
                 outputName = outputName + '.gif'
                 QApplication.processEvents()
@@ -109,7 +109,7 @@ class MyApp(QMainWindow):
             # print(frames)
                 QApplication.processEvents()
 
-                resized_clip = clip.resize(0.8)
+                resized_clip = clip.resize(0.3)
 
                 if i+1 == len(files):
                     self.statusbar.setStyleSheet("color: red;")
@@ -123,7 +123,9 @@ class MyApp(QMainWindow):
                     QApplication.processEvents()
 
                     
-                resized_clip.write_gif(outputName, fps=20, fuzz=1, opt='nq', program='ffmpeg')
+                resized_clip.write_gif(outputName, fps=40, fuzz=1, opt='nq', program='ffmpeg')
+                QApplication.processEvents()
+                subprocess.run(['gifsicle', '-O2', '--lossy=85', outputName, '-o', outputName])
                 QApplication.processEvents()
 
 
